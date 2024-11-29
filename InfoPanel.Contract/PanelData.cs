@@ -15,6 +15,7 @@ namespace InfoPanel.Contract
 
     public class Entry
     {
+        public Guid Guid { get; set; } //unique identifier for the entry
         public string Name { get; set; } //name of entry (Would be something like "Fan Speed", "CPU Usage", "Water Temp",...
         public string Value { get; set; } //The result value. Now while it only accepts strings, you can use something like double.TryParse() to get the value out        
     }

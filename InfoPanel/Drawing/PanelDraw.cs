@@ -123,8 +123,6 @@ namespace InfoPanel.Drawing
                             
                             if (d2dGraphics != null)
                             {
-                                d2dGraphics.SetDPI(96, 96);
-                                d2dGraphics.Antialias = true;
                                 using var g1 = AcceleratedGraphics.FromD2DGraphics(d2dGraphics, acceleratedGraphics);
                                 d2dGraphics.BeginRender();
                                 GraphDraw.Run(chartDisplayItem, g1);

@@ -1,4 +1,5 @@
-﻿using InfoPanel.Models;
+﻿using InfoPanel.Contract;
+using InfoPanel.Models;
 using InfoPanel.Monitors;
 using InfoPanel.Services;
 using InfoPanel.ViewModels;
@@ -10,6 +11,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Win32;
+using Prise;
 using Prise.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -89,7 +91,7 @@ namespace InfoPanel
 
         public Dictionary<Guid, DisplayWindow> DisplayWindows = [];
 
-        public static T GetService<T>()
+        public static T? GetService<T>()
         where T : class
         {
             return _host.Services.GetService(typeof(T)) as T;
@@ -180,6 +182,13 @@ namespace InfoPanel
 
             HWHash.SetDelay(100);
             HWHash.Launch();
+            LibreMonitor.Launch();
+
+            var pluginLoader = GetService<IPluginLoader>();
+            if (pluginLoader != null)
+            {
+                PluginMonitor.Launch(pluginLoader);
+            }
 
             PanelDrawTask.Instance.Start();
             //GraphDrawTask.Instance.Start();
@@ -190,7 +199,6 @@ namespace InfoPanel
             SystemEvents.PowerModeChanged += OnPowerChange;
             Exit += App_Exit;
 
-            LibreMonitor.Launch();
         }
 
         private void OnSessionEnding(object sender, SessionEndingEventArgs e)
@@ -317,13 +325,6 @@ namespace InfoPanel
                 displayWindow.Closed -= DisplayWindow_Closed;
                 DisplayWindows.Remove(displayWindow.Profile.Guid);
             }
-        }
-
-        public void testPlugin()
-        {
-           // var pluginPath = Path.Combine(AppContext.BaseDirectory, "plugins"); //set the path where people should put plugins. I chose a folder called plugins in the same directory as the exe
-
-            //var scanResult = await this._pluginLoader.FindPlugin<IPanelData>(pluginPath);
         }
     }
 }

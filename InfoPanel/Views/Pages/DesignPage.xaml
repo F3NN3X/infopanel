@@ -28,7 +28,7 @@
             Grid.Column="0" 
             CornerRadius="8,8,8,8" Margin="0,50,10,0" >
                 <TabControl TabStripPlacement="Top">
-                    <TabItem>
+                    <TabItem Width="155">
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Width="30" Height="30" Source="/InfoPanel;component/Resources/Images/hwinfo_icon.ico"/>
@@ -54,11 +54,11 @@
                             </StackPanel>
                             <Border Background="#1D1D1D"  CornerRadius="0,4,4,4"
                                     Visibility="{Binding Source={x:Static local:SharedModel.Instance}, Path=HwInfoAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <components:HWiNFOSensors Margin="0,0,0,10"/>
+                                <components:HWiNFOSensors Margin="0,0,0,10"/>
                             </Border>
                         </Grid>
                     </TabItem>
-                    <TabItem>
+                    <TabItem Width="155">
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Width="30" Height="30" Source="/InfoPanel;component/Resources/Images/libre_icon.ico"/>
@@ -71,9 +71,20 @@
                             <components:LibreSensors Margin="0,0,0,10"/>
                         </Border>
                     </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Width="30" Height="30" Source="/InfoPanel;component/Resources/Images/libre_icon.ico"/>
+                                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+            <Bold FontWeight="SemiBold" FontSize="16">Plugins</Bold>
+                                </TextBlock>
+                            </StackPanel>
+                        </TabItem.Header>
+                        <Border Background="#1D1D1D"  CornerRadius="0,4,4,4">
+                            <components:PluginSensors Margin="0,0,0,10"/>
+                        </Border>
+                    </TabItem>
                 </TabControl>
-               
-              
             </Border>
 
             <Border

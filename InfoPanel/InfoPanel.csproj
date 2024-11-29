@@ -18,6 +18,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\InfoPanel.Contract\InfoPanel.Contract.csproj" />
 		<ProjectReference Include="..\TuringSmartScreenLib.Helpers.SkiaSharp\TuringSmartScreenLib.Helpers.SkiaSharp.csproj" />
 		<ProjectReference Include="..\TuringSmartScreenLib\TuringSmartScreenLib.csproj" />
 		<Reference Include="d2dlibexport">
@@ -111,6 +112,9 @@
 			<DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Views\Components\Chart\DonutProperties.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\Components\HWiNFO\PluginSensors.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
 		<Compile Update="Views\Components\HWiNFO\LibreSensors.xaml.cs">
