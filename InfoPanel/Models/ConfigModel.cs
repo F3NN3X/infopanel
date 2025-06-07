@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -25,7 +26,7 @@ namespace InfoPanel
 
         public static ConfigModel Instance { get { return lazy.Value; } }
 
-        public ObservableCollection<Profile> Profiles { get; private set; }
+        public ObservableCollection<Profile> Profiles { get; private set; } = [];
         private readonly object _profilesLock = new();
 
         public Settings Settings { get; private set; }
@@ -46,12 +47,13 @@ namespace InfoPanel
                 }
             }
 
-            Profiles = [];
-            Profiles.CollectionChanged += Profiles_CollectionChanged;
-
-            LoadProfiles();
-
             Settings.PropertyChanged += Settings_PropertyChanged;
+            Profiles.CollectionChanged += Profiles_CollectionChanged;
+        }
+
+        public void Initialize()
+        {
+            LoadProfiles();
         }
 
         private void Profiles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -170,6 +172,17 @@ namespace InfoPanel
                     await BeadaPanelTask.Instance.StopAsync();
                 }
             }
+            else if (e.PropertyName == nameof(Settings.TuringPanel))
+            {
+                if (Settings.TuringPanel)
+                {
+                    await TuringPanelTask.Instance.StartAsync();
+                }
+                else
+                {
+                    await TuringPanelTask.Instance.StopAsync();
+                }
+            }
             else if (e.PropertyName == nameof(Settings.TuringPanelA))
             {
                 if (Settings.TuringPanelA)
@@ -266,6 +279,12 @@ namespace InfoPanel
                             Settings.AutoStart = settings.AutoStart;
                             Settings.StartMinimized = settings.StartMinimized;
                             Settings.MinimizeToTray = settings.MinimizeToTray;
+
+                            Settings.SelectedItemColor = settings.SelectedItemColor;
+                            Settings.ShowGridLines = settings.ShowGridLines;
+                            Settings.GridLinesColor = settings.GridLinesColor;
+                            Settings.GridLinesSpacing = settings.GridLinesSpacing;
+
                             Settings.LibreHardwareMonitor = settings.LibreHardwareMonitor;
                             Settings.LibreHardMonitorRing0 = settings.LibreHardMonitorRing0;
                             Settings.WebServer = settings.WebServer;
@@ -280,6 +299,11 @@ namespace InfoPanel
                             Settings.BeadaPanelProfile = settings.BeadaPanelProfile;
                             Settings.BeadaPanelRotation = settings.BeadaPanelRotation;
                             Settings.BeadaPanelBrightness = settings.BeadaPanelBrightness;
+
+                            Settings.TuringPanel = settings.TuringPanel;
+                            Settings.TuringPanelProfile = settings.TuringPanelProfile;
+                            Settings.TuringPanelRotation = settings.TuringPanelRotation;
+                            Settings.TuringPanelBrightness = settings.TuringPanelBrightness;
 
                             Settings.TuringPanelA = settings.TuringPanelA;
                             Settings.TuringPanelAProfile = settings.TuringPanelAProfile;

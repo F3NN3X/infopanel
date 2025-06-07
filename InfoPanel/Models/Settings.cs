@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using InfoPanel.ViewModels;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InfoPanel.Models
 {
-    public class Settings : ObservableObject
+    public partial class Settings : ObservableObject
     {
         private bool _autostart = false;
         public bool AutoStart
@@ -30,6 +31,18 @@ namespace InfoPanel.Models
             get { return _minimizeToTray; }
             set { SetProperty(ref _minimizeToTray, value); }
         }
+
+        [ObservableProperty]
+        private string _selectedItemColor = "#FF00FF00";
+
+        [ObservableProperty]
+        private bool _showGridLines = true;
+
+        [ObservableProperty]
+        private float _gridLinesSpacing = 20;
+
+        [ObservableProperty]
+        private string _gridLinesColor = "#1A808080";
 
         private bool _libreHardwareMonitor = true;
         public bool LibreHardwareMonitor
@@ -76,6 +89,40 @@ namespace InfoPanel.Models
             set
             {
                 SetProperty(ref _beadaPanelBrightness, value);
+            }
+        }
+
+        private bool _turingPanel = false;
+        public bool TuringPanel
+        {
+            get { return _turingPanel; }
+            set { SetProperty(ref _turingPanel, value); }
+        }
+
+        private Guid _turingPanelProfile = Guid.Empty;
+        public Guid TuringPanelProfile
+        {
+            get { return _turingPanelProfile; }
+            set { SetProperty(ref _turingPanelProfile, value); }
+        }
+
+        private LCD_ROTATION _turingPanelRotation = 0;
+        public LCD_ROTATION TuringPanelRotation
+        {
+            get { return _turingPanelRotation; }
+            set
+            {
+                SetProperty(ref _turingPanelRotation, value);
+            }
+        }
+
+        private int _turingPanelBrightness = 100;
+        public int TuringPanelBrightness
+        {
+            get { return _turingPanelBrightness; }
+            set
+            {
+                SetProperty(ref _turingPanelBrightness, value);
             }
         }
 

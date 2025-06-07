@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SkiaSharp;
+using System;
 using System.IO;
-using System.Windows;
 
 namespace InfoPanel.Models
 {
     [Serializable]
-    public class ImageDisplayItem : DisplayItem
+    public partial class ImageDisplayItem : DisplayItem
     {
         private string? _filePath;
         public string? FilePath
@@ -72,15 +72,11 @@ namespace InfoPanel.Models
             }
         }
 
-        private int _rotation = 0;
-        public int Rotation
-        {
-            get { return _rotation; }
-            set
-            {
-                SetProperty(ref _rotation, value);
-            }
-        }
+        [ObservableProperty]
+        private int _width = 0;
+
+        [ObservableProperty]
+        private int _height = 0;
 
         private bool _layer = false;
         public bool Layer
@@ -103,14 +99,14 @@ namespace InfoPanel.Models
                     return;
                 }
 
-                if (!value.StartsWith("#"))
+                if (!value.StartsWith('#'))
                 {
                     value = "#" + value;
                 }
 
                 try
                 {
-                    ColorTranslator.FromHtml(value);
+                    SKColor.Parse(value);
                     SetProperty(ref _layerColor, value);
                 }
                 catch
@@ -149,27 +145,44 @@ namespace InfoPanel.Models
             return (Name, "#000000");
         }
 
-        public override SizeF EvaluateSize()
+        public override SKSize EvaluateSize()
         {
-            var result = new SizeF(0, 0);
+            var result = new SKSize(Width, Height);
 
             if (CalculatedPath != null)
             {
-                var cachedImage = InfoPanel.Cache.GetLocalImage(CalculatedPath);
+                var cachedImage = InfoPanel.Cache.GetLocalImage(this);
                 if (cachedImage != null)
                 {
-                    result.Width = cachedImage.Width * Scale / 100.0f;
-                    result.Height = cachedImage.Height * Scale / 100.0f;
+                    if(result.Width == 0)
+                    {
+                        result.Width = cachedImage.Width;
+                    }
+
+                    if (result.Height == 0)
+                    {
+                        result.Height = cachedImage.Height;
+                    }
                 }
+            }
+
+            if(result.Width != 0)
+            {
+                result.Width *= Scale / 100.0f;
+            }
+
+            if(result.Height != 0)
+            {
+                result.Height *= Scale / 100.0f;
             }
 
             return result;
         }
 
-        public override Rect EvaluateBounds()
+        public override SKRect EvaluateBounds()
         {
             var size = EvaluateSize();
-            return new Rect(X, Y, size.Width, size.Height);
+            return new SKRect(X, Y, X + size.Width, Y + size.Height);
         }
 
         public override object Clone()
@@ -177,6 +190,10 @@ namespace InfoPanel.Models
             var clone = (DisplayItem)MemberwiseClone();
             clone.Guid = Guid.NewGuid();
             return clone;
+        }
+        public override void SetProfileGuid(Guid profileGuid)
+        {
+            ProfileGuid = profileGuid;
         }
     }
 }

@@ -157,7 +157,6 @@ namespace InfoPanel.Views.Components
                 };
 
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -223,7 +222,6 @@ namespace InfoPanel.Views.Components
                 item.PluginSensorId = sensorItem.SensorId;
                 item.SensorType = Enums.SensorType.Plugin;
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -235,7 +233,6 @@ namespace InfoPanel.Views.Components
                 item.PluginSensorId = sensorItem.SensorId;
                 item.SensorType = Enums.SensorType.Plugin;
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -247,7 +244,6 @@ namespace InfoPanel.Views.Components
                 item.PluginSensorId = sensorItem.SensorId;
                 item.SensorType = Enums.SensorType.Plugin;
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -259,7 +255,6 @@ namespace InfoPanel.Views.Components
                 item.PluginSensorId = sensorItem.SensorId;
                 item.SensorType = Enums.SensorType.Plugin;
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -267,11 +262,14 @@ namespace InfoPanel.Views.Components
         {
             if (ViewModel.SelectedItem is PluginSensorItem sensorItem && SharedModel.Instance.SelectedProfile is Profile selectedProfile)
             {
-                var item = new SensorImageDisplayItem(sensorItem.Name, selectedProfile.Guid);
-                item.PluginSensorId = sensorItem.SensorId;
-                item.SensorType = Enums.SensorType.Plugin;
+                var item = new SensorImageDisplayItem(sensorItem.Name, selectedProfile.Guid)
+                {
+                    Width = 100,
+                    Height = 100,
+                    PluginSensorId = sensorItem.SensorId,
+                    SensorType = Enums.SensorType.Plugin
+                };
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -279,11 +277,14 @@ namespace InfoPanel.Views.Components
         {
             if (ViewModel.SelectedItem is PluginSensorItem sensorItem && SharedModel.Instance.SelectedProfile is Profile selectedProfile)
             {
-                var item = new HttpImageDisplayItem(sensorItem.Name, selectedProfile.Guid);
-                item.PluginSensorId = sensorItem.SensorId;
-                item.SensorType = Enums.SensorType.Plugin;
+                var item = new HttpImageDisplayItem(sensorItem.Name, selectedProfile.Guid)
+                {
+                    Width = 100,
+                    Height = 100,
+                    PluginSensorId = sensorItem.SensorId,
+                    SensorType = Enums.SensorType.Plugin
+                };
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -296,7 +297,6 @@ namespace InfoPanel.Views.Components
                     item.TableFormat = format;
                 }
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
     }

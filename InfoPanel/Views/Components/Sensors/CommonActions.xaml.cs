@@ -23,16 +23,18 @@ namespace InfoPanel.Views.Components
                 Color = SharedModel.Instance.SelectedProfile!.Color
             };
             SharedModel.Instance.AddDisplayItem(item);
-            SharedModel.Instance.SelectedItem = item;
         }
 
         private void ButtonNewImage_Click(object sender, RoutedEventArgs e)
         {
             if (SharedModel.Instance.SelectedProfile != null)
             {
-                var item = new ImageDisplayItem("Image", SharedModel.Instance.SelectedProfile.Guid);
+                var item = new ImageDisplayItem("Image", SharedModel.Instance.SelectedProfile.Guid)
+                {
+                    Width = 100,
+                    Height = 100
+                };
                 SharedModel.Instance.AddDisplayItem(item);
-                SharedModel.Instance.SelectedItem = item;
             }
         }
 
@@ -46,7 +48,6 @@ namespace InfoPanel.Views.Components
 
             };
             SharedModel.Instance.AddDisplayItem(item);
-            SharedModel.Instance.SelectedItem = item;
         }
 
         private void ButtonNewCalendar_Click(object sender, RoutedEventArgs e)
@@ -58,7 +59,12 @@ namespace InfoPanel.Views.Components
                 Color = SharedModel.Instance.SelectedProfile!.Color
             };
             SharedModel.Instance.AddDisplayItem(item);
-            SharedModel.Instance.SelectedItem = item;
+        }
+
+        private void ButtonNewShape_Click(object sender, RoutedEventArgs e)
+        {
+            var item = new ShapeDisplayItem("Shape");
+            SharedModel.Instance.AddDisplayItem(item);
         }
     }
 }
