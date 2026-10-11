@@ -105,7 +105,7 @@ public partial class UsbPanelsPage : Page
                                     DeviceId = deviceId,
                                     DeviceLocation = deviceLocation,
                                     Model = panelInfo.Model.ToString(),
-                                    ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault()?.Guid ?? Guid.Empty,
+                                    ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault(p => !p.WebViewEnabled)?.Guid ?? Guid.Empty,
                                     RuntimeProperties = new BeadaPanelDevice.BeadaPanelDeviceRuntimeProperties()
                                     {
                                         PanelInfo = panelInfo
@@ -179,7 +179,7 @@ public partial class UsbPanelsPage : Page
 
                 if (device == null)
                 {
-                    discoveredDevice.ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault()?.Guid ?? Guid.Empty;
+                    discoveredDevice.ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault(p => !p.WebViewEnabled)?.Guid ?? Guid.Empty;
                     settings.TuringPanelDevices.Add(discoveredDevice);
                     Logger.Information("TuringPanel Discovery: Added new device with DeviceId '{DeviceId}'", discoveredDevice.DeviceId);
                 }
@@ -526,7 +526,7 @@ public partial class UsbPanelsPage : Page
                         DeviceId = discoveredDevice.DeviceId,
                         DeviceLocation = discoveredDevice.DeviceLocation,
                         Model = discoveredDevice.Model,
-                        ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault()?.Guid ?? Guid.Empty
+                        ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault(p => !p.WebViewEnabled)?.Guid ?? Guid.Empty
                     };
 
                     if (discoveredDevice.ModelInfo != null)
@@ -669,7 +669,7 @@ public partial class UsbPanelsPage : Page
                         DeviceId = discoveredDevice.DeviceId,
                         DeviceLocation = discoveredDevice.DeviceLocation,
                         Model = discoveredDevice.Model,
-                        ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault()?.Guid ?? Guid.Empty
+                        ProfileGuid = ConfigModel.Instance.Profiles.FirstOrDefault(p => !p.WebViewEnabled)?.Guid ?? Guid.Empty
                     };
 
                     if (discoveredDevice.ModelInfo != null)

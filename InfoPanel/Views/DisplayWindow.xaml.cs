@@ -33,6 +33,9 @@ namespace InfoPanel.Views.Common
         public Profile Profile { get; }
         public bool OpenGL { get; }
 
+        /// <summary>Web page mode takes precedence, so an OpenGL profile showing a web page never builds GL elements.</summary>
+        public static bool UsesOpenGL(Profile profile) => profile.OpenGL && !profile.WebViewEnabled;
+
         private bool _dragMove = false;
         private readonly Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
         private HwndSource? _hwndSource;
@@ -68,7 +71,7 @@ namespace InfoPanel.Views.Common
             Profile = profile;
             DataContext = this;
 
-            OpenGL = profile.OpenGL;
+            OpenGL = UsesOpenGL(profile);
             WebView = profile.WebViewEnabled;
 
             InitializeComponent();
