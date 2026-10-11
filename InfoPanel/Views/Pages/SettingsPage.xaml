@@ -834,6 +834,78 @@
         <StackPanel Margin="0,40,0,0">
             <Label
                 Margin="0,0,0,10"
+                Content="DataBridge Export"
+                FontSize="14"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <ui:CardControl>
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="VirtualNetwork20" />
+                </ui:CardControl.Icon>
+                <ui:CardControl.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="13"
+                                FontWeight="Medium"
+                                Text="Host" />
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="IP or host name of the DataBridge that sensor values are exported to."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </ui:CardControl.Header>
+                <TextBox
+                    Width="150"
+                    Text="{Binding Source={x:Static local:ConfigModel.Instance}, Path=Settings.DataBridgeExportHost}" />
+            </ui:CardControl>
+            <ui:CardControl Margin="0,10,0,0">
+                <ui:CardControl.Icon>
+                    <ui:SymbolIcon Symbol="VirtualNetworkToolbox20" />
+                </ui:CardControl.Icon>
+                <ui:CardControl.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="13"
+                                FontWeight="Medium"
+                                Text="Port" />
+                            <TextBlock
+                                Margin="0,5,0,0"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Port the DataBridge API listens on."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </ui:CardControl.Header>
+                <ui:NumberBox
+                    Width="150"
+                    FontSize="14"
+                    LargeChange="10"
+                    Maximum="65535"
+                    MaxDecimalPlaces="0"
+                    Minimum="1"
+                    SmallChange="1"
+                    Text="{Binding Source={x:Static local:ConfigModel.Instance}, Path=Settings.DataBridgeExportPort}"
+                    Value="{Binding Source={x:Static local:ConfigModel.Instance}, Path=Settings.DataBridgeExportPort}" />
+            </ui:CardControl>
+        </StackPanel>
+
+        <StackPanel Margin="0,40,0,0">
+            <Label
+                Margin="0,0,0,10"
                 Content="Misc"
                 FontSize="14"
                 FontWeight="Medium"

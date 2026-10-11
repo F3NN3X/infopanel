@@ -740,6 +740,8 @@ namespace InfoPanel
                             Settings.WebServerListenIp = settings.WebServerListenIp;
                             Settings.WebServerListenPort = settings.WebServerListenPort;
                             Settings.WebServerRefreshRate = settings.WebServerRefreshRate;
+                            Settings.DataBridgeExportHost = settings.DataBridgeExportHost;
+                            Settings.DataBridgeExportPort = settings.DataBridgeExportPort;
                             Settings.TargetFrameRate = settings.TargetFrameRate;
                             Settings.TargetGraphUpdateRate = settings.TargetGraphUpdateRate;
                             Settings.Version = settings.Version;
