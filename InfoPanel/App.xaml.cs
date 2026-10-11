@@ -458,10 +458,10 @@ namespace InfoPanel
                 await WebServerTask.Instance.StartAsync();
             }
 
-            // Export all native values to the (optional) DataBridge web API.
-            // Runs unconditionally; silently no-ops when the bridge is not running.
-            await DataBridgeExportTask.Instance.StartAsync();
-
+            if (ConfigModel.Instance.Settings.DataApi)
+            {
+                await DataApiTask.Instance.StartAsync();
+            }
         }
 
         private static async Task StopPanels()

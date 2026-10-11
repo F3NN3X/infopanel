@@ -477,6 +477,17 @@ namespace InfoPanel
                     await WebServerTask.Instance.StopAsync();
                 }
             }
+            else if (e.PropertyName == nameof(Settings.DataApi))
+            {
+                if (Settings.DataApi)
+                {
+                    await DataApiTask.Instance.StartAsync();
+                }
+                else
+                {
+                    await DataApiTask.Instance.StopAsync();
+                }
+            }
             else if (e.PropertyName == nameof(Settings.AutosaveEnabled) || e.PropertyName == nameof(Settings.AutosaveIdleSeconds))
             {
                 RestartAutosaveTimer();
@@ -693,8 +704,9 @@ namespace InfoPanel
                             Settings.WebServerListenIp = settings.WebServerListenIp;
                             Settings.WebServerListenPort = settings.WebServerListenPort;
                             Settings.WebServerRefreshRate = settings.WebServerRefreshRate;
-                            Settings.DataBridgeExportHost = settings.DataBridgeExportHost;
-                            Settings.DataBridgeExportPort = settings.DataBridgeExportPort;
+                            Settings.DataApi = settings.DataApi;
+                            Settings.DataApiListenIp = settings.DataApiListenIp;
+                            Settings.DataApiListenPort = settings.DataApiListenPort;
                             Settings.TargetFrameRate = settings.TargetFrameRate;
                             Settings.TargetGraphUpdateRate = settings.TargetGraphUpdateRate;
                             Settings.Version = settings.Version;
