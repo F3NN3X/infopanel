@@ -113,6 +113,12 @@ namespace InfoPanel.Models
         private int _webServerRefreshRate = 66;
 
         [ObservableProperty]
+        private string _dataBridgeExportHost = "127.0.0.1";
+
+        [ObservableProperty]
+        private int _dataBridgeExportPort = 3921;
+
+        [ObservableProperty]
         private int _targetFrameRate = 15;
 
         [ObservableProperty]
