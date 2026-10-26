@@ -1254,6 +1254,7 @@ namespace InfoPanel
                         WebViewDisableCache = profile.WebViewDisableCache,
                         WebViewAutoRefreshSeconds = profile.WebViewAutoRefreshSeconds,
                         WebViewMaxFps = profile.WebViewMaxFps,
+                        WebViewDailyRefresh = profile.WebViewDailyRefresh,
                     };
 
                     var entry = archive.CreateEntry("Profile.xml");
